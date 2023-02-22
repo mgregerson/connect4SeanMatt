@@ -22,7 +22,7 @@ function makeBoard() {
   for (let n = 0; n < WIDTH; n++) {
     innerArr.push("");
   }
-  // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+
   for (let n = 0; n < HEIGHT; n++) {
     board.push(innerArr);
     // push inner array into board
@@ -33,16 +33,18 @@ function makeBoard() {
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
-  var htmlBoard = document.getElementById("board");
+  const htmlBoard = document.getElementById("board");
 
-  // TODO: add comment for this code
-  var top = document.createElement("tr");
+  // create the top table row and attach a click event listener that calls
+  // handleClick() and assign id "column-top"
+  const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
-  // TODO: add comment for this code
-  for (var x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+  // Create each of the cells in the top row, assign each one an id 'top-#'
+  // and add them to the top table row
+  for (let x = 0; x < WIDTH; x++) {
+    const headCell = document.createElement("td");
     headCell.setAttribute("id", `top-${x}`);
     top.append(headCell);
   }
@@ -53,14 +55,20 @@ function makeHtmlBoard() {
   // uses WIDTH to create table cells for each row
   for (var y = 0; y < HEIGHT; y++) {
     // TODO: Create a table row element and assign to a "row" variable
+    const row = document.createElement("tr");
+    row.setAttribute('id', `row-${y}`);
 
     for (var x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
+      const cell = document.createElement("td");
+      cell.setAttribute('id', `c-${y}-${x}`);
       // TODO: add an id, c-y-x, to the above table cell element
       // you'll use this later, so make sure you use c-y-x
       // TODO: append the table cell to the table row
+      row.appendChild(cell);
     }
     // TODO: append the row to the html board
+    htmlBoard.appendChild(row);
   }
 }
 
