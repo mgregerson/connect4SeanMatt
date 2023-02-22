@@ -18,14 +18,15 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 
 function makeBoard() {
-  let innerArr = [];
-  for (let n = 0; n < WIDTH; n++) {
-    innerArr.push("");
-  }
+
 
   for (let n = 0; n < HEIGHT; n++) {
-    board.push(innerArr);
     // push inner array into board
+    let innerArr = [];
+    for (let x = 0; x < WIDTH; x++) {
+      innerArr.push("");
+    }
+    board.push(innerArr);
   }
   return board;
 }
