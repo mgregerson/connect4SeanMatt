@@ -1,9 +1,30 @@
 <!doctype html>
 <head>
   <title>Connect 4</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+    crossorigin="anonymous"
+  />
   <link href="connect4.css" rel="stylesheet">
 </head>
 <body>
+  <div class="header text-center justify-content-center" id="header">
+    <div class="row text-center justify-content-center">
+      <h1 class="col-8" id="title">Connect Four!</h1>
+    </div>
+    <div class="row text-center justify-content-center mb-3">
+      <button
+        type="button"
+        class="col-2 btn btn-success"
+        id="restartGameButton"
+      >
+        Restart Game
+      </button>
+    </div>
+  </div>
 
   <div id="game">
     <table id="board"></table>

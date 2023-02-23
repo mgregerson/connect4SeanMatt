@@ -6,7 +6,7 @@
  * column until a player gets four-in-a-row (horiz, vert, or diag) or until
  * board fills (tie)
  */
-
+const DISPLAY_CURRENT_PLAYER = document.querySelector("#current-player");
 const WIDTH = 7;
 const HEIGHT = 6;
 
@@ -41,7 +41,7 @@ function makeHtmlBoard() {
   top.addEventListener("click", handleClick);
 
   // Create each of the cells in the top row, assign each one an id 'top-#'
-  // and add them to the top table row
+  // and append them to the top table row
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
     headCell.setAttribute("id", `top-${x}`);
@@ -61,6 +61,7 @@ function makeHtmlBoard() {
       // TODO: Create a table cell element and assign to a "cell" variable
       const cell = document.createElement("td");
       cell.setAttribute("id", `c-${y}-${x}`);
+      cell.setAttribute("class", "cell");
       // TODO: add an id, c-y-x, to the above table cell element
       // you'll use this later, so make sure you use c-y-x
       // TODO: append the table cell to the table row
@@ -101,7 +102,7 @@ function placeInTable(y, x) {
 /** endGame: announce game end */
 
 function endGame(msg) {
-  // TODO: pop up alert message
+  alert(`Player ${currPlayer} won the game!`);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -222,6 +223,15 @@ function checkForWin() {
     }
   }
 }
+
+setTimeout(() => {
+  document
+    .querySelector("#restartGameButton")
+    .addEventListener("click", function () {
+      window.location.reload();
+      return false;
+    });
+}, 2000);
 
 makeBoard();
 makeHtmlBoard();
