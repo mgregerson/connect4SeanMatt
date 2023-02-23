@@ -76,11 +76,11 @@ function makeHtmlBoard() {
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 5
   for (let y = board.length - 1; y >= 0; y--) {
-    if (board[y][x] === null){
+    if (board[y][x] === null) {
       return y;
     }
   }
-  return 5;
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -122,6 +122,7 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
+    console.log(checkForWin());
     return endGame(`Player ${currPlayer} won!`);
   }
 
@@ -129,11 +130,10 @@ function handleClick(evt) {
 
   // TODO: check if all cells in board are filled; if so call, call endGame
 
-  if (board.every(y => !y.includes(null))) return endGame(`It's a tie!`);
-
+  if (board.every((y) => !y.includes(null))) return endGame(`It's a tie!`);
 
   // switch players
-  currPlayer = (currPlayer === 1) ? 2 : 1;
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -147,6 +147,37 @@ function checkForWin() {
   function _win(cells) {
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
+    // if all of the elements in one of these arrays is the current player,
+    // check for win
+
+    // if (cells.every((cell) => cell === currPlayer)) {
+    //   return true;
+    // }
+    // return false;
+    // console.log(`win ${cells}`);
+    // for (let cell of cells) {
+    //   let y = cell[0];
+    //   let x = cell[1];
+    //   if (y >= 0 && y <= HEIGHT - 1 && x >= 0 && x <= WIDTH - 1) {
+    //     if (board[y][x] !== currPlayer) {
+    //       return undefined;
+    //     }
+    //   }
+    // }
+    // return true;
+
+    for (let cell of cells) {
+      let y = cell[0];
+      let x = cell[1];
+      if (y >= 0 && y <= HEIGHT - 1 && x >= 0 && x <= WIDTH - 1) {
+        if (board[y][x] !== currPlayer) {
+          return undefined;
+        }
+      } else {
+        return undefined;
+      }
+    }
+    return true;
   }
 
   // using HEIGHT and WIDTH, generate "check list" of coordinates
@@ -165,9 +196,24 @@ function checkForWin() {
         [y, x + 2],
         [y, x + 3],
       ];
-      let vert;
-      let diagDL;
-      let diagDR;
+      let vert = [
+        [y, x],
+        [y + 1, x],
+        [y + 2, x],
+        [y + 3, x],
+      ];
+      let diagDL = [
+        [y, x],
+        [y + 1, x - 1],
+        [y + 2, x - 2],
+        [y + 3, x - 3],
+      ];
+      let diagDR = [
+        [y, x],
+        [y - 1, x + 1],
+        [y - 2, x + 2],
+        [y - 3, x + 3],
+      ];
 
       // find winner (only checking each win-possibility as needed)
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
