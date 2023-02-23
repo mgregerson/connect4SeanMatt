@@ -18,17 +18,15 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 
 function makeBoard() {
-
-
-  for (let n = 0; n < HEIGHT; n++) {
+  for (let y = 0; y < HEIGHT; y++) {
     // push inner array into board
-    let innerArr = [];
+    let row = [];
     for (let x = 0; x < WIDTH; x++) {
-      innerArr.push("");
+      row.push(null);
     }
-    board.push(innerArr);
+    board.push(row);
   }
-  return board;
+  // return board;
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -54,22 +52,22 @@ function makeHtmlBoard() {
   // dynamically creates the main part of html board
   // uses HEIGHT to create table rows
   // uses WIDTH to create table cells for each row
-  for (var y = 0; y < HEIGHT; y++) {
+  for (let y = 0; y < HEIGHT; y++) {
     // TODO: Create a table row element and assign to a "row" variable
     const row = document.createElement("tr");
-    row.setAttribute('id', `row-${y}`);
+    row.setAttribute("id", `row-${y}`);
 
-    for (var x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
       const cell = document.createElement("td");
-      cell.setAttribute('id', `c-${y}-${x}`);
+      cell.setAttribute("id", `c-${y}-${x}`);
       // TODO: add an id, c-y-x, to the above table cell element
       // you'll use this later, so make sure you use c-y-x
       // TODO: append the table cell to the table row
-      row.appendChild(cell);
+      row.append(cell);
     }
     // TODO: append the row to the html board
-    htmlBoard.appendChild(row);
+    htmlBoard.append(row);
   }
 }
 
@@ -81,9 +79,17 @@ function findSpotForCol(x) {
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
+// This function should add a div inside the correct td cell
+//   in the HTML game board.This div should have the piece class on it,
+//   and should have a class for whether the current player is 1 or 2,
+//   like p1 or p2.
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+  const piece = document.createElement("div");
+  piece.classList.add("piece");
+  piece.classList.add(`p${currPlayer}`);
+  const cell = document.getElementById(`c-${y}-${x}`);
+  cell.append(piece);
 }
 
 /** endGame: announce game end */
@@ -96,7 +102,7 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  var x = +evt.target.id;
+  let x = evt.target.id[4];
 
   // get next spot in column (if none, ignore click)
   var y = findSpotForCol(x);
@@ -161,5 +167,5 @@ function checkForWin() {
   }
 }
 
-// makeBoard();
+makeBoard();
 makeHtmlBoard();
